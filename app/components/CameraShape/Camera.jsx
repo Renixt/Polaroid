@@ -3,8 +3,14 @@ import {useGLTF} from "@react-three/drei";
 import { Float } from "@react-three/drei";
 import { useTransform} from "framer-motion";
 import { motion } from "framer-motion-3d";
-function Camera({mouse}) {
-    const { nodes, materials } = useGLTF('/media/polaroid_image_systemspectra.glb')
+import { useState, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+function Camera({mouse, intersectedObject}) {
+    const meshRef= useRef();
+    const { nodes, materials } = useGLTF('/media/polaroid_image_systemspectra.glb');
+    if(intersectedObject && intersectedObject=== meshRef.current){
+      meshRef.current.material.color.set("green");
+    }
   return (
     <Float>
       
